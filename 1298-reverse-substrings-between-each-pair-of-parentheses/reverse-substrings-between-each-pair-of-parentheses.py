@@ -4,24 +4,19 @@ class Solution:
 
         for ch in s:
             if ch == '(':
-                # Start a new substring
                 stack.append([])
-            
             elif ch == ')':
-                # Reverse the current substring
-                curr = stack.pop()[::-1]
+                temp = stack.pop()
+                temp.reverse()
 
-                # If there is an outer substring, add to it
                 if stack:
-                    stack[-1].extend(curr)
+                    stack[-1].extend(temp)
                 else:
-                    stack.append(curr)
-            
+                    stack.append(temp)
             else:
-                # Normal character
-                if stack:
-                    stack[-1].append(ch)
-                else:
-                    stack.append([ch])
+                if not stack:
+                    stack.append([])
+
+                stack[-1].append(ch)
 
         return ''.join(stack[0])
